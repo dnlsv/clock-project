@@ -2,8 +2,8 @@
 
 Electronic::Electronic()
 {
-	type[0] = '\0';
-	platform[0] = '\0';
+    type[0] = '\0';
+    platform[0] = '\0';
 }
 
 Electronic::~Electronic()
@@ -11,120 +11,120 @@ Electronic::~Electronic()
 
 }
 
-void Electronic::set_type(char* buf)
+void Electronic::SetType(char* buf)
 {
-	strcpy_s(type, RESERVESIZE, buf);
+    strcpy_s(type, kReservedSize, buf);
 }
 
-char* Electronic::get_type()
+char* Electronic::GetType()
 {
-	return type;
+    return type;
 }
 
-void Electronic::set_platform(char* buf)
+void Electronic::SetPlatform(char* buf)
 {
-	strcpy_s(platform, RESERVESIZE, buf);
+    strcpy_s(platform, kReservedSize, buf);
 }
 
-char* Electronic::get_platform()
+char* Electronic::GetPlatform()
 {
-	return platform;
+    return platform;
 }
 
 ostream& operator <<(ostream& out, Electronic obj)
 {
-	out << dynamic_cast <Clock&>(obj);
-	out << setw(11) << obj.type << setw(11) << obj.platform << endl;
-	return out;
+    out << dynamic_cast <Clock&>(obj);
+    out << setw(11) << obj.type << setw(11) << obj.platform << endl;
+    return out;
 }
 
 istream& operator >> (istream& in, Electronic& obj)
 {
-	in >> dynamic_cast<Clock&>(obj);
-	cout << "Òèï ÷àñîâ: ";
-	strcpy_s(obj.type, validationCheckStr(in));
-	cout << "Ïëàòôîðìà: ";
-	strcpy_s(obj.platform, validationCheckStr(in));
-	return in;
+    in >> dynamic_cast<Clock&>(obj);
+    cout << "Ð¢Ð¸Ð¿ Ñ‡Ð°ÑÐ¾Ð²: ";
+    strcpy_s(obj.type, CheckStr(in));
+    cout << "ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°: ";
+    strcpy_s(obj.platform, CheckStr(in));
+    return in;
 }
 
 fstream& operator <<(fstream& fout, Electronic obj)
 {
-	fout << dynamic_cast <Clock&>(obj);
-	fout << obj.type << "!" << obj.platform << "!";
-	return fout;
+    fout << dynamic_cast <Clock&>(obj);
+    fout << obj.type << "!" << obj.platform << "!";
+    return fout;
 }
 
 
 fstream& operator >> (fstream& fin, Electronic& obj)
 {
-	fin >> dynamic_cast<Clock&>(obj);
-	fin.ignore(255, ' ');
-	fin.getline(obj.type, 20, '!');
-	fin.getline(obj.platform, 20, '!');
-	//fin >> obj.platform;
-	return fin;
+    fin >> dynamic_cast<Clock&>(obj);
+    fin.ignore(255, ' ');
+    fin.getline(obj.type, 20, '!');
+    fin.getline(obj.platform, 20, '!');
+    //fin >> obj.platform;
+    return fin;
 }
 
-void Electronic::tableCap()
+void Electronic::TableHeader()
 {
-	cout << " " << setw(3) << left << "¹" << setw(15) << "Ïðîèçâîäèòåëü" << setw(10) << "Ìàòåðèàë" << setw(6) << "Öåíà"
-		<< setw(11) << "Òèï ÷àñîâ" << setw(11) << "Ïëàòôîðìà" << endl;
+    cout << " " << "â„–  " << "ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ  " << "ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»  " << "Ð¦ÐµÐ½Ð°  " << "Ð¢Ð¸Ð¿ Ñ‡Ð°ÑÐ¾Ð²  "
+        << "ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°  " << endl;
 }
 
-void Electronic::edit()
+void Electronic::Edit()
 {
-	int num;
-	cout << endl << "\tÊàêèå äàííûå èçìåíèòü?" << endl << endl << "1 - Ïðîèçâîäèòåëü" << endl
-		<< "2 - Ìàòåðèàë" << endl << "3 - Öåíà" << endl << "4 - Òèï ÷àñîâ"
-		<< endl << "5 - Ïëàòôîðìà" << endl;
-	cin >> num;
-	cout << endl << "\tÂâåäèòå íîâûå äàííûå" << endl << endl;
-	switch (num)
-	{
-	case 1:
-		cin >> producer;
-		break;
-	case 2:
-		cin >> material;
-		break;
-	case 3:
-		cin >> cost;
-		break;
-	case 4:
-		cin >> type;
-		break;
-	case 5:
-		cin >> platform;
-		break;
-	}
+    int num;
+    cout << endl << "\tÐšÐ°ÐºÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ?" << endl << endl << "1 - ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ" << endl
+        << "2 - ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»" << endl << "3 - Ð¦ÐµÐ½Ð°" << endl << "4 - Ð¢Ð¸Ð¿ Ñ‡Ð°ÑÐ¾Ð²"
+        << endl << "5 - ÐŸÐ»Ð°Ñ‚Ñ„Ð¾Ñ€Ð¼Ð°" << endl;
+    cin >> num;
+    cout << endl << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð²Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ" << endl << endl;
+    switch (num)
+    {
+    case 1:
+        cin >> producer;
+        break;
+    case 2:
+        cin >> material;
+        break;
+    case 3:
+        cin >> cost;
+        break;
+    case 4:
+        cin >> type;
+        break;
+    case 5:
+        cin >> platform;
+        break;
+    }
 }
 
-string Electronic::getNameOfClass()
+string Electronic::GetNameOfClass()
 {
-	return "Electonic";
+    return "Electronic";
 }
 
 bool Electronic::operator == (Electronic ob)
 {
-	if ((strcmp(producer, ob.producer) == 0) && (strcmp(material, ob.material) == 0) && (cost == ob.cost) && (strcmp(type, ob.type) == 0) && (strcmp(platform, ob.platform) == 0))
-		return true;
-	else
-		return false;
+    if ((strcmp(producer, ob.producer) == 0) && (strcmp(material, ob.material) == 0) && (cost == ob.cost) && (strcmp(type, ob.type) == 0) && (strcmp(platform, ob.platform) == 0))
+        return true;
+    else
+        return false;
 }
 
 bool operator <(const Electronic& ob1, const Electronic& ob2)
 {
-	if (ob1.cost < ob2.cost)
-		return true;
-	else
-		return false;
+    if (ob1.cost < ob2.cost)
+        return true;
+    else
+        return false;
 }
 
 bool operator >(const Electronic& ob1, const Electronic& ob2)
 {
-	if (ob1.cost > ob2.cost)
-		return true;
-	else
-		return false;
+    if (ob1.cost > ob2.cost)
+        return true;
+    else
+        return false;
 }

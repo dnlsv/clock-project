@@ -6,12 +6,11 @@ using namespace std;
 
 int main()
 {
+    setlocale(LC_ALL, ".UTF8");
 
-	setlocale(LC_ALL, "rus");
+    Interface<int> obj;
+    obj.Menu();
 
-	Interface<int> obj;
-	obj.menu();
-
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }

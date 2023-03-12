@@ -162,12 +162,13 @@
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Electronic.h" />
     <ClInclude Include="Exception.h" />
-    <ClInclude Include="ExceptionInput.h" />
+    <ClInclude Include="ExceptionOut.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="FileBinary.h" />
     <ClInclude Include="FileText.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Mechanical.h" />
+    <ClInclude Include="Validation.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Wrist.h" />
   </ItemGroup>

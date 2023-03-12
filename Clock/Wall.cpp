@@ -2,8 +2,8 @@
 
 Wall::Wall()
 {
-	form[0] = '\0';
-	value = 0;
+    form[0] = '\0';
+    value = 0;
 }
 
 Wall::~Wall()
@@ -11,124 +11,123 @@ Wall::~Wall()
 
 }
 
-void Wall::set_form(char* buf)
+void Wall::SetForm(char* buf)
 {
-	strcpy_s(form, RESERVESIZE, buf);
+    strcpy_s(form, kReservedSize, buf);
 }
 
-char* Wall::get_form()
+char* Wall::GetForm()
 {
-	return form;
+    return form;
 }
 
-void Wall::set_value(int buf)
+void Wall::SetValue(int buf)
 {
-	buf = value;
+    buf = value;
 }
 
-int Wall::get_value()
+int Wall::GetValue()
 {
-	return value;
+    return value;
 }
 
 ostream& operator <<(ostream& out, Wall obj)
 {
-	out << dynamic_cast <Mechanical&>(obj);
-	out << setw(13) << obj.form << setw(14) << obj.value << endl;
-	return out;
+    out << dynamic_cast <Mechanical&>(obj);
+    out << setw(13) << obj.form << setw(14) << obj.value << endl;
+    return out;
 }
 
 istream& operator >> (istream& in, Wall& obj)
 {
-	in >> dynamic_cast<Mechanical&>(obj);
-	cout << "Ôîðìà ÷àñîâ: ";
-	strcpy_s(obj.form, validationCheckStr(in));
-	cout << "Öåíà äåëåíèÿ öèôåðáëàòà (îò 6 äî 24): ";
-	obj.value = validationCheckInt(in, 6, 24);
-	return in;
+    in >> dynamic_cast<Mechanical&>(obj);
+    cout << "Ð¤Ð¾Ñ€Ð¼Ð° Ñ‡Ð°ÑÐ¾Ð²: ";
+    strcpy_s(obj.form, CheckStr(in));
+    cout << "Ð¦ÐµÐ½Ð° Ð´ÐµÐ»ÐµÐ½Ð¸Ñ Ñ†Ð¸Ñ„ÐµÑ€Ð±Ð»Ð°Ñ‚Ð° (Ð¾Ñ‚ 6 Ð´Ð¾ 24): ";
+    obj.value = CheckInt(in, 6, 24);
+    return in;
 }
 
 fstream& operator <<(fstream& fout, Wall obj)
 {
-	fout << dynamic_cast <Mechanical&>(obj);
-	fout << obj.form << "!" << obj.value;
-	return fout;
+    fout << dynamic_cast <Mechanical&>(obj);
+    fout << obj.form << "!" << obj.value;
+    return fout;
 }
 
 fstream& operator >> (fstream& fin, Wall& obj)
 {
-	fin >> dynamic_cast<Mechanical&>(obj);
-	fin.getline(obj.form, 20, '!');
-	fin >> obj.value;
-	return fin;
+    fin >> dynamic_cast<Mechanical&>(obj);
+    fin.getline(obj.form, 20, '!');
+    fin >> obj.value;
+    return fin;
 }
 
-void Wall::tableCap()
+void Wall::TableHeader()
 {
-	cout << " " << setw(3) << left << "¹" << setw(15) << "Ïðîèçâîäèòåëü" << setw(10) << "Ìàòåðèàë" << setw(6) << "Öåíà"
-		<< setw(16) << "Òèï öèôåðáëàòà" << setw(12) << "Òèï ñòåêëà" << setw(13) << "Ôîðìà ÷àñîâ"
-		<< setw(14) << "Öåíà äåëåíèÿ öèôåðáëàòà" << endl;
+    cout << " " << "â„–  " << "ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ  " << "ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»  " << "Ð¦ÐµÐ½Ð°  " << "Ð¢Ð¸Ð¿ Ñ†Ð¸Ñ„ÐµÑ€Ð±Ð»Ð°Ñ‚Ð°  "
+        << "Ð¢Ð¸Ð¿ ÑÑ‚ÐµÐºÐ»Ð°  " << "Ð¤Ð¾Ñ€Ð¼Ð° Ñ‡Ð°ÑÐ¾Ð²  " << "Ð¦ÐµÐ½Ð° Ð´ÐµÐ»ÐµÐ½Ð¸Ñ Ñ†Ð¸Ñ„ÐµÑ€Ð±Ð»Ð°Ñ‚Ð°  " << endl;
 }
 
-void Wall::edit()
+void Wall::Edit()
 {
-	int num;
-	cout << endl << "\tÊàêèå äàííûå èçìåíèòü?" << endl << endl << "1 - Ïðîèçâîäèòåëü" << endl
-		<< "2 - Ìàòåðèàë" << endl << "3 - Öåíà" << endl << "4 - Òèï öèôåðáëàòà"
-		<< endl << "5 - Òèï ñòåêëà" << endl << "6 - Ôîðìà ÷àñîâ" << endl << "7 - Öåíà äåëåíèÿ öèôåðáëàòà" << endl;
-	cin >> num;
-	cout << endl << "\tÂâåäèòå íîâûå äàííûå" << endl << endl;
-	switch (num)
-	{
-	case 1:
-		cin >> producer;
-		break;
-	case 2:
-		cin >> material;
-		break;
-	case 3:
-		cin >> cost;
-		break;
-	case 4:
-		cin >> face;
-		break;
-	case 5:
-		cin >> glass;
-		break;
-	case 6:
-		cin >> form;
-		break;
-	case 7:
-		cin >> value;
-		break;
-	}
+    int num;
+    cout << endl << "\tÐšÐ°ÐºÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ?" << endl << endl << "1 - ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ" << endl
+        << "2 - ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»" << endl << "3 - Ð¦ÐµÐ½Ð°" << endl << "4 - Ð¢Ð¸Ð¿ Ñ†Ð¸Ñ„ÐµÑ€Ð±Ð»Ð°Ñ‚Ð°"
+        << endl << "5 - Ð¢Ð¸Ð¿ ÑÑ‚ÐµÐºÐ»Ð°" << endl << "6 - Ð¤Ð¾Ñ€Ð¼Ð° Ñ‡Ð°ÑÐ¾Ð²" << endl << "7 - Ð¦ÐµÐ½Ð° Ð´ÐµÐ»ÐµÐ½Ð¸Ñ Ñ†Ð¸Ñ„ÐµÑ€Ð±Ð»Ð°Ñ‚Ð°" << endl;
+    cin >> num;
+    cout << endl << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð²Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ" << endl << endl;
+    switch (num)
+    {
+    case 1:
+        cin >> producer;
+        break;
+    case 2:
+        cin >> material;
+        break;
+    case 3:
+        cin >> cost;
+        break;
+    case 4:
+        cin >> face;
+        break;
+    case 5:
+        cin >> glass;
+        break;
+    case 6:
+        cin >> form;
+        break;
+    case 7:
+        cin >> value;
+        break;
+    }
 }
 
-string Wall::getNameOfClass()
+string Wall::GetNameOfClass()
 {
-	return "Wall";
+    return "Wall";
 }
 
 bool Wall::operator == (Wall ob)
 {
-	if ((strcmp(producer, ob.producer) == 0) && (strcmp(material, ob.material) == 0) && (cost == ob.cost) && (strcmp(face, ob.face) == 0) && (strcmp(glass, ob.glass) == 0) && (strcmp(form, ob.form) == 0) && (value == ob.value))
-		return true;
-	else
-		return false;
+    if ((strcmp(producer, ob.producer) == 0) && (strcmp(material, ob.material) == 0) && (cost == ob.cost) && (strcmp(face, ob.face) == 0) && (strcmp(glass, ob.glass) == 0) && (strcmp(form, ob.form) == 0) && (value == ob.value))
+        return true;
+    else
+        return false;
 }
 
 bool operator <(const Wall& ob1, const Wall& ob2)
 {
-	if (ob1.cost < ob2.cost)
-		return true;
-	else
-		return false;
+    if (ob1.cost < ob2.cost)
+        return true;
+    else
+        return false;
 }
 
 bool operator >(const Wall& ob1, const Wall& ob2)
 {
-	if (ob1.cost > ob2.cost)
-		return true;
-	else
-		return false;
+    if (ob1.cost > ob2.cost)
+        return true;
+    else
+        return false;
 }

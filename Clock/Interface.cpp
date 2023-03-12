@@ -1,190 +1,198 @@
 #include "Interface.h"
 
 template<class T>
-void Interface<T>::menu()
+void Interface<T>::Menu()
 {
-	int num;
+    int num;
 
-	while (1)
-	{
-		cout << "\t×ÀÑÛ" << endl << endl;
-		cout << "1 - Ýëåêòðîííûå ÷àñû" << endl << "2 - Íàðó÷íûå ÷àñû" << endl << "3 - Íàñòåííûå ÷àñû" << endl << "0 - Âåðíóòüñÿ" << endl;
-		cin >> num;
-		switch (num)
-		{
-		case 1:
-		{
-			Interface<Electronic> obj;
-			obj.fun("ElectronicText.txt", "ElectronicBinary.txt");
-			break;
-		}
-		case 2:
-		{
-			Interface<Wrist> obj1;
-			obj1.fun("WristText.txt", "WristBinary.txt");
-			break;
-		}
-		case 3:
-		{
-			Interface<Wall> obj2;
-			obj2.fun("WallText.txt", "WallBinary.txt");
-			break;
-		}
-		case 0:
-			return;
-		}
-	}
+    while (1)
+    {
+        cout << "\tÐ§ÐÐ¡Ð«" << endl << endl;
+        cout << "1 - Ð­Ð»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ñ‹Ðµ Ñ‡Ð°ÑÑ‹" << endl << "2 - ÐÐ°Ñ€ÑƒÑ‡Ð½Ñ‹Ðµ Ñ‡Ð°ÑÑ‹" << endl << "3 - ÐÐ°ÑÑ‚ÐµÐ½Ð½Ñ‹Ðµ Ñ‡Ð°ÑÑ‹" << endl << "0 - Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ" << endl;
+        cin >> num;
+        switch (num)
+        {
+        case 1:
+        {
+            Interface<Electronic> electronic;
+            electronic.Fun(Electronic::GetNameOfClass());
+            break;
+        }
+        case 2:
+        {
+            Interface<Wrist> wrist;
+            wrist.Fun(Wrist::GetNameOfClass());
+            break;
+        }
+        case 3:
+        {
+            Interface<Wall> wall;
+            wall.Fun(Wall::GetNameOfClass());
+            break;
+        }
+        case 0:
+            return;
+        }
+    }
 }
 
 template <class T>
-void Interface<T>::fun(string text_file, string binary_file)
+void Interface<T>::Fun(string file_name)
 {
-	FileText<T>text(text_file);
-	FileBinary<T>binary(binary_file);
+    FileText<T>text(file_name);
+    FileBinary<T>binary(file_name);
 
-	multiset<T> mult;
-	typename multiset <T> ::iterator it;
-	it = mult.begin();
+    multiset<T> clocks;
+    typename multiset <T> ::iterator it;
+    it = clocks.begin();
 
-	int num;
-	bool flag = true;
-	while (flag)
-	{
-		cout << endl << "1 - Äîáàâèòü" << endl << "2 - Óäàëèòü" << endl << "3 - Ïðîñìîòð" << endl << "4 - Ðåäàêòèðîâàòü" << endl
-			<< "5 - Ïîèñê" << endl << "6 - Çàïèñü â ôàéë" << endl << "7 - ×òåíèå èç ôàéëà" << endl 
-			<< "8 - Î÷èñòèòü êîíòåéíåð" << endl << "0 - Âåðíóòüñÿ" << endl;
-		cin >> num;
-		switch (num)
-		{
-		case 1:
-			cout << endl;
-			cin >> element;
-			mult.insert(element);
-			cout << endl << "Çàïèñü äîáàâëåíà!" << endl;
-			break;
-		case 2:
-			this->viewElements(mult);
-			cout << endl << "Ââåäèòå íîìåð çàïèñè äëÿ óäàëåíèÿ:" << endl;
-			cin >> num;
-			it = mult.begin();
-			for (int i = 0; i < num - 1; i++)
-				it++;
-			mult.erase(it);
-			cout << endl << "Çàïèñü óäàëåíà!" << endl;
-			break;
-		case 3:
-			this->viewElements(mult);
-			break;
-		case 4:
-			this->viewElements(mult);
-			cout << endl << "Ââåäèòå íîìåð çàïèñè äëÿ ðåäàêòèðîâàíèÿ:" << endl;
-			cin >> num;
-			it = mult.begin();
-			for (int i = 0; i < num - 1; i++)
-				it++;
-			element = (*it);
-			element.edit();
-			mult.erase(it);
-			mult.insert(element);
-			cout << endl << "Çàïèñü îòðåäàêòèðîâàíà!" << endl;
-			break;
-		case 5:
-			cout << endl;
-			cin >> element;
-			cout << endl;
-			if (mult.find(element) == mult.end())
-				cout << "\tÝëåìåíò íå íàéäåí!" << endl;
-			else
-			{
-				element.tableCap();
-				cout << "    " << element;
-			}
-			break;
-		case 6:
-		{
-			int num, i = 0;
-			cout << endl << "1 - Çàïèñü â òåêñòîâûé ôàéë" << endl << "2 - Çàïèñü â áèíàðíûé ôàéë" << endl;
-			cin >> num;
-			switch (num)
-			{
-			case 1:
-				text.CleanTextFile();
-				text.Remote();
-				for (it = mult.begin(); it != mult.end(); it++)
-				{
-					element = (*it);
-					text.WriteText(element, i, (int)mult.size());
-					i++;
-				}
-				cout << endl << "Äàííûå çàïèñàíû â òåêñòîâûé ôàéë!" << endl;
-				break;
-			case 2:
-				binary.CleanBinaryFile();
-				binary.Remote();
-				for (it = mult.begin(); it != mult.end(); it++)
-				{
-					element = (*it);
-					binary.WriteBinary(element);
-				}
-				cout << endl << "Äàííûå çàïèñàíû â áèíàðíûé ôàéë!" << endl;
-				break;
-			}
-			break;
-		}
-		case 7:
-		{
-			int num, i = 0;
-			cout << endl << "1 - ×òåíèå èç òåêñòîâîãî ôàéëà" << endl << "2 - ×òåíèå èç áèíàðíîãî ôàéëà" << endl;
-			cin >> num;
-			switch (num)
-			{
-			case 1:
-				mult.clear();
-				text.Remote();
-				while (!text.EndFile())
-				{
-					i++;
-					text.ReadText(element, i);
-					mult.insert(element);
-				}
-				cout << endl << "Äàííûå ñ÷èòàíû èç òåêñòîâîãî ôàéëà!" << endl;
-				break;
-			case 2:
-				mult.clear();
-				binary.Remote();
-				while (binary.EndFile())
-				{
-					binary.ReadBinary(element);
-					mult.insert(element);
-				}
-				cout << endl << "Äàííûå ñ÷èòàíû èç áèíàðíîãî ôàéëà!" << endl;
-				break;
-			}
-			break;
-		}
-		case 8:
-			mult.clear();
-			cout << endl << "\tÊîíòåéíåð î÷èùåí!" << endl;
-			break;
-		case 0:
-			flag = false;
-			break;
-		}
-	}
+    int num;
+    bool flag = true;
+    while (flag)
+    {
+        cout << endl << "1 - Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ" << endl << "2 - Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ" << endl << "3 - ÐŸÑ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€" << endl << "4 - Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ" << endl
+            << "5 - ÐŸÐ¾Ð¸ÑÐº" << endl << "6 - Ð—Ð°Ð¿Ð¸ÑÑŒ Ð² Ñ„Ð°Ð¹Ð»" << endl << "7 - Ð§Ñ‚ÐµÐ½Ð¸Ðµ Ð¸Ð· Ñ„Ð°Ð¹Ð»Ð°" << endl
+            << "8 - ÐžÑ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€" << endl << "0 - Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ" << endl;
+        cin >> num;
+        switch (num)
+        {
+        case 1:
+            cout << endl;
+            cin >> element;
+            clocks.insert(element);
+            cout << endl << "Ð—Ð°Ð¿Ð¸ÑÑŒ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°!" << endl;
+            break;
+        case 2:
+            this->ViewElements(clocks);
+            if (!clocks.empty()) {
+                cout << endl << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð´Ð»Ñ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ:" << endl;
+                cin >> num;
+                it = clocks.begin();
+                for (int i = 0; i < num - 1; i++)
+                    it++;
+                clocks.erase(it);
+                cout << endl << "Ð—Ð°Ð¿Ð¸ÑÑŒ ÑƒÐ´Ð°Ð»ÐµÐ½Ð°!" << endl;
+            }
+            break;
+        case 3:
+            this->ViewElements(clocks);
+            break;
+        case 4:
+            this->ViewElements(clocks);
+            if (!clocks.empty()) {
+                cout << endl << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð·Ð°Ð¿Ð¸ÑÐ¸ Ð´Ð»Ñ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ:" << endl;
+                cin >> num;
+                it = clocks.begin();
+                for (int i = 0; i < num - 1; i++)
+                    it++;
+                element = (*it);
+                element.Edit();
+                clocks.erase(it);
+                clocks.insert(element);
+                cout << endl << "Ð—Ð°Ð¿Ð¸ÑÑŒ Ð¾Ñ‚Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð°!" << endl;
+            }
+            break;
+        case 5:
+            if (clocks.empty())
+                cout << endl << "\tÐšÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€ Ð¿ÑƒÑÑ‚!" << endl;
+            else {
+                cout << endl;
+                cin >> element;
+                cout << endl;
+                if (clocks.find(element) == clocks.end())
+                    cout << "\tÐ­Ð»ÐµÐ¼ÐµÐ½Ñ‚ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½!" << endl;
+                else
+                {
+                    element.TableHeader();
+                    cout << "    " << element;
+                }
+            }
+            break;
+        case 6:
+        {
+            int num, i = 0;
+            cout << endl << "1 - Ð—Ð°Ð¿Ð¸ÑÑŒ Ð² Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»" << endl << "2 - Ð—Ð°Ð¿Ð¸ÑÑŒ Ð² Ð±Ð¸Ð½Ð°Ñ€Ð½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»" << endl;
+            cin >> num;
+            switch (num)
+            {
+            case 1:
+                text.CleanTextFile();
+                text.Clear();
+                for (it = clocks.begin(); it != clocks.end(); it++)
+                {
+                    element = (*it);
+                    text.WriteText(element, i, (int)clocks.size());
+                    i++;
+                }
+                cout << endl << "Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ñ‹ Ð² Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»!" << endl;
+                break;
+            case 2:
+                binary.CleanBinaryFile();
+                binary.Clear();
+                for (it = clocks.begin(); it != clocks.end(); it++)
+                {
+                    element = (*it);
+                    binary.WriteBinary(element);
+                }
+                cout << endl << "Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ñ‹ Ð² Ð±Ð¸Ð½Ð°Ñ€Ð½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»!" << endl;
+                break;
+            }
+            break;
+        }
+        case 7:
+        {
+            int num, i = 0;
+            cout << endl << "1 - Ð§Ñ‚ÐµÐ½Ð¸Ðµ Ð¸Ð· Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ð¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð°" << endl << "2 - Ð§Ñ‚ÐµÐ½Ð¸Ðµ Ð¸Ð· Ð±Ð¸Ð½Ð°Ñ€Ð½Ð¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð°" << endl;
+            cin >> num;
+            switch (num)
+            {
+            case 1:
+                clocks.clear();
+                text.Clear();
+                while (!text.EndFile())
+                {
+                    i++;
+                    text.ReadText(element, i);
+                    clocks.insert(element);
+                }
+                cout << endl << "Ð”Ð°Ð½Ð½Ñ‹Ðµ ÑÑ‡Ð¸Ñ‚Ð°Ð½Ñ‹ Ð¸Ð· Ñ‚ÐµÐºÑÑ‚Ð¾Ð²Ð¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð°!" << endl;
+                break;
+            case 2:
+                clocks.clear();
+                binary.Clear();
+                while (binary.EndFile())
+                {
+                    binary.ReadBinary(element);
+                    clocks.insert(element);
+                }
+                cout << endl << "Ð”Ð°Ð½Ð½Ñ‹Ðµ ÑÑ‡Ð¸Ñ‚Ð°Ð½Ñ‹ Ð¸Ð· Ð±Ð¸Ð½Ð°Ñ€Ð½Ð¾Ð³Ð¾ Ñ„Ð°Ð¹Ð»Ð°!" << endl;
+                break;
+            }
+            break;
+        }
+        case 8:
+            clocks.clear();
+            cout << endl << "\tÐšÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€ Ð¾Ñ‡Ð¸Ñ‰ÐµÐ½!" << endl;
+            break;
+        case 0:
+            flag = false;
+            break;
+        }
+    }
 }
 
 template <class T>
-void Interface<T>::viewElements(const multiset<T>& mult)
+void Interface<T>::ViewElements(const multiset<T>& clocks)
 {
-	if (mult.empty())
-		cout << endl << "\tÊîíòåéíåð ïóñò!" << endl;
-	else
-	{
-		int i = 0;
-		typename multiset <T> ::iterator it;
-		cout << endl;
-		element.tableCap();
-		for (it = mult.begin(); it != mult.end(); it++)
-			cout << " " << setw(3) << left << ++i << *it;
-	}
+    if (clocks.empty())
+        cout << endl << "\tÐšÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€ Ð¿ÑƒÑÑ‚!" << endl;
+    else
+    {
+        int i = 0;
+        typename multiset <T> ::iterator it;
+        cout << endl;
+        element.TableHeader();
+        for (it = clocks.begin(); it != clocks.end(); it++)
+            cout << " " << setw(3) << left << ++i << *it;
+    }
 }

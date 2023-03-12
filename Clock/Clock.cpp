@@ -2,9 +2,9 @@
 
 Clock::Clock()
 {
-	producer[0] = '\0';
-	material[0] = '\0';
-	cost = 0;
+    producer[0] = '\0';
+    material[0] = '\0';
+    cost = 0;
 }
 
 Clock::~Clock()
@@ -12,63 +12,63 @@ Clock::~Clock()
 
 }
 
-void Clock::set_producer(char* buf)
+void Clock::SetProducer(char* buf)
 {
-	strcpy_s(producer, RESERVESIZE, buf);
+    strcpy_s(producer, kReservedSize, buf);
 }
 
-char* Clock::get_producer()
+char* Clock::GetProducer()
 {
-	return producer;
+    return producer;
 }
 
-void Clock::set_material(char* buf)
+void Clock::SetMaterial(char* buf)
 {
-	strcpy_s(material, RESERVESIZE, buf);
+    strcpy_s(material, kReservedSize, buf);
 }
 
-char* Clock::get_material()
+char* Clock::GetMaterial()
 {
-	return material;
+    return material;
 }
 
-void Clock::set_cost(int buf)
+void Clock::SetCost(int buf)
 {
-	buf = cost;
+    buf = cost;
 }
 
-int Clock::get_cost()
+int Clock::GetCost()
 {
-	return cost;
+    return cost;
 }
 
 ostream& operator <<(ostream& out, Clock& obj)
 {
-	out << setw(15) << obj.producer << setw(10) << obj.material << setw(6) << obj.cost;
-	return out;
+    out << setw(15) << obj.producer << setw(10) << obj.material << setw(6) << obj.cost;
+    return out;
 }
 
 istream& operator >> (istream& in, Clock& obj)
 {
-	cout << "Ââåäèòå" << endl << "Ïðîèçâîäèòåëÿ: ";
-	strcpy_s(obj.producer, validationCheckStr(in));
-	cout << "Ìàòåðèàë: ";
-	strcpy_s(obj.material, validationCheckStr(in));
-	cout << "Öåíó (îò 1 äî 100): ";
-	obj.cost = validationCheckInt(in, 1, 100);
-	return in;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ" << endl << "ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»Ñ: ";
+    strcpy_s(obj.producer, CheckStr(in));
+    cout << "ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»: ";
+    strcpy_s(obj.material, CheckStr(in));
+    cout << "Ð¦ÐµÐ½Ñƒ (Ð¾Ñ‚ 1 Ð´Ð¾ 100): ";
+    obj.cost = CheckInt(in, 1, 100);
+    return in;
 }
 
 fstream& operator <<(fstream& fout, Clock& obj)
 {
-	fout << obj.producer << "!" << obj.material << "!" << obj.cost << " ";
-	return fout;
+    fout << obj.producer << "!" << obj.material << "!" << obj.cost << " ";
+    return fout;
 }
 
 fstream& operator >> (fstream& fin, Clock& obj)
 {
-	fin.getline(obj.producer, 40, '!');
-	fin.getline(obj.material, 40, '!');
-	fin >> obj.cost;
-	return fin;
+    fin.getline(obj.producer, 40, '!');
+    fin.getline(obj.material, 40, '!');
+    fin >> obj.cost;
+    return fin;
 }

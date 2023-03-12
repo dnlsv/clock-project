@@ -2,8 +2,8 @@
 
 Wrist::Wrist()
 {
-	materialrem[0] = '\0';
-	water = 0;
+    strapMaterial[0] = '\0';
+    water = 0;
 }
 
 Wrist::	~Wrist()
@@ -11,124 +11,123 @@ Wrist::	~Wrist()
 
 }
 
-void Wrist::set_materialrem(char* buf)
+void Wrist::SetStrapMaterial(char* buf)
 {
-	strcpy_s(materialrem, RESERVESIZE, buf);
+    strcpy_s(strapMaterial, kReservedSize, buf);
 }
 
-char* Wrist::get_materialrem()
+char* Wrist::GetStrapMaterial()
 {
-	return materialrem;
+    return strapMaterial;
 }
 
-void Wrist::set_water(bool buf)
+void Wrist::SetWater(bool buf)
 {
-	buf = water;
+    buf = water;
 }
 
-bool Wrist::get_water()
+bool Wrist::GetWater()
 {
-	return water;
+    return water;
 }
 
 ostream& operator <<(ostream& out, Wrist obj)
 {
-	out << dynamic_cast <Mechanical&>(obj);
-	out << setw(19) << obj.materialrem << setw(12) << obj.water << endl;
-	return out;
+    out << dynamic_cast <Mechanical&>(obj);
+    out << setw(18) << obj.strapMaterial << setw(12) << obj.water << endl;
+    return out;
 }
 
 istream& operator >> (istream& in, Wrist& obj)
 {
-	in >> dynamic_cast<Mechanical&>(obj);
-	cout << "Ìàòåðèàë ðåìåøêà: ";
-	strcpy_s(obj.materialrem, validationCheckStr(in));
-	cout << "Âîäîçàùèòà (1 - Åñòü, 0 - Íåò): ";
-	in >> obj.water;
-	return in;
+    in >> dynamic_cast<Mechanical&>(obj);
+    cout << "ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð» Ñ€ÐµÐ¼ÐµÑˆÐºÐ°: ";
+    strcpy_s(obj.strapMaterial, CheckStr(in));
+    cout << "Ð’Ð¾Ð´Ð¾Ð·Ð°Ñ‰Ð¸Ñ‚Ð° (1 - Ð•ÑÑ‚ÑŒ, 0 - ÐÐµÑ‚): ";
+    in >> obj.water;
+    return in;
 }
 
 fstream& operator <<(fstream& fout, Wrist obj)
 {
-	fout << dynamic_cast <Mechanical&>(obj);
-	fout << obj.materialrem << "!" << obj.water;
-	return fout;
+    fout << dynamic_cast <Mechanical&>(obj);
+    fout << obj.strapMaterial << "!" << obj.water;
+    return fout;
 }
 
 fstream& operator >> (fstream& fin, Wrist& obj)
 {
-	fin >> dynamic_cast<Mechanical&>(obj);
-	fin.getline(obj.materialrem, 20, '!');
-	fin >> obj.water;
-	return fin;
+    fin >> dynamic_cast<Mechanical&>(obj);
+    fin.getline(obj.strapMaterial, 20, '!');
+    fin >> obj.water;
+    return fin;
 }
 
-void Wrist::tableCap()
+void Wrist::TableHeader()
 {
-	cout << " " << setw(3) << left << "¹" << setw(15) << "Ïðîèçâîäèòåëü" << setw(10) << "Ìàòåðèàë" << setw(6) << "Öåíà"
-		<< setw(16) << "Òèï öèôåðáëàòà" << setw(12) << "Òèï ñòåêëà" << setw(19) << "Ìàòåðèàë ðåìåøêà"
-		<< setw(12) << "Âîäîçàùèòà" << endl;
+    cout << " " << "â„–  " << "ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ  " << "ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»  " << "Ð¦ÐµÐ½Ð°  " << "Ð¢Ð¸Ð¿ Ñ†Ð¸Ñ„ÐµÑ€Ð±Ð»Ð°Ñ‚Ð°  "
+        << "Ð¢Ð¸Ð¿ ÑÑ‚ÐµÐºÐ»Ð°  " << "ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð» Ñ€ÐµÐ¼ÐµÑˆÐºÐ°  " << "Ð’Ð¾Ð´Ð¾Ð·Ð°Ñ‰Ð¸Ñ‚Ð°  " << endl;
 }
 
-void Wrist::edit()
+void Wrist::Edit()
 {
-	int num;
-	cout << endl << "\tÊàêèå äàííûå èçìåíèòü?" << endl << endl << "1 - Ïðîèçâîäèòåëü" << endl
-		<< "2 - Ìàòåðèàë" << endl << "3 - Öåíà" << endl << "4 - Òèï öèôåðáëàòà"
-		<< endl << "5 - Òèï ñòåêëà" << endl << "6 - Ìàòåðèàë ðåìåøêà" << endl << "7 - Âîäîçàùèòà" << endl;
-	cin >> num;
-	cout << endl << "\tÂâåäèòå íîâûå äàííûå" << endl << endl;
-	switch (num)
-	{
-	case 1:
-		cin >> producer;
-		break;
-	case 2:
-		cin >> material;
-		break;
-	case 3:
-		cin >> cost;
-		break;
-	case 4:
-		cin >> face;
-		break;
-	case 5:
-		cin >> glass;
-		break;
-	case 6:
-		cin >> materialrem;
-		break;
-	case 7:
-		cin >> water;
-		break;
-	}
+    int num;
+    cout << endl << "\tÐšÐ°ÐºÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ?" << endl << endl << "1 - ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ" << endl
+        << "2 - ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð»" << endl << "3 - Ð¦ÐµÐ½Ð°" << endl << "4 - Ð¢Ð¸Ð¿ Ñ†Ð¸Ñ„ÐµÑ€Ð±Ð»Ð°Ñ‚Ð°"
+        << endl << "5 - Ð¢Ð¸Ð¿ ÑÑ‚ÐµÐºÐ»Ð°" << endl << "6 - ÐœÐ°Ñ‚ÐµÑ€Ð¸Ð°Ð» Ñ€ÐµÐ¼ÐµÑˆÐºÐ°" << endl << "7 - Ð’Ð¾Ð´Ð¾Ð·Ð°Ñ‰Ð¸Ñ‚Ð°" << endl;
+    cin >> num;
+    cout << endl << "\tÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð²Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ" << endl << endl;
+    switch (num)
+    {
+    case 1:
+        cin >> producer;
+        break;
+    case 2:
+        cin >> material;
+        break;
+    case 3:
+        cin >> cost;
+        break;
+    case 4:
+        cin >> face;
+        break;
+    case 5:
+        cin >> glass;
+        break;
+    case 6:
+        cin >> strapMaterial;
+        break;
+    case 7:
+        cin >> water;
+        break;
+    }
 }
 
-string Wrist::getNameOfClass()
+string Wrist::GetNameOfClass()
 {
-	return "Wrist";
+    return "Wrist";
 }
 
 bool Wrist::operator == (Wrist ob)
 {
-	if ((strcmp(producer, ob.producer) == 0) && (strcmp(material, ob.material) == 0) && (cost == ob.cost) && (strcmp(face, ob.face) == 0) && (strcmp(glass, ob.glass) == 0) && (strcmp(materialrem, ob.materialrem) == 0) && (water == ob.water))
-		return true;
-	else
-		return false;
+    if ((strcmp(producer, ob.producer) == 0) && (strcmp(material, ob.material) == 0) && (cost == ob.cost) && (strcmp(face, ob.face) == 0) && (strcmp(glass, ob.glass) == 0) && (strcmp(strapMaterial, ob.strapMaterial) == 0) && (water == ob.water))
+        return true;
+    else
+        return false;
 }
 
 bool operator <(const Wrist& ob1, const Wrist& ob2)
 {
-	if (ob1.cost < ob2.cost)
-		return true;
-	else
-		return false;
+    if (ob1.cost < ob2.cost)
+        return true;
+    else
+        return false;
 }
 
 bool operator >(const Wrist& ob1, const Wrist& ob2)
 {
-	if (ob1.cost > ob2.cost)
-		return true;
-	else
-		return false;
+    if (ob1.cost > ob2.cost)
+        return true;
+    else
+        return false;
 }

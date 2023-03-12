@@ -1,85 +1,85 @@
-#include "ExceptionInput.h"
+#include "Validation.h"
 
-char* validationCheckStr(istream& in)
+char* CheckStr(istream& in)
 {
-	rewind(stdin);
-	char* str = new char[20];
-	bool flag;
-	do
-	{
-		try
-		{
-			flag = false;
-			in.getline(str, 20);
-			//in >> str;
-			for (int i = 0; str[i]; i++)
-				if (!(str[i] >= 'a' && str[i] <= 'z' || str[i] >= 'A' && str[i] <= 'Z' || str[i] == ' '))
-					throw Exception("Неверный ввод! Введите заново, используя только латинский алфавит, заглавные и прописные символы!");
-		}
-		catch (Exception ob)
-		{
-			flag = true;
-			ob.show();
-			rewind(stdin);
-		}
+    rewind(stdin);
+    char* str = new char[20];
+    bool flag;
+    do
+    {
+        try
+        {
+            flag = false;
+            in.getline(str, 20);
+            //in >> str;
+            for (int i = 0; str[i]; i++)
+                if (!(str[i] >= 'a' && str[i] <= 'z' || str[i] >= 'A' && str[i] <= 'Z' || str[i] == ' '))
+                    throw Exception("РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ! Р’РІРµРґРёС‚Рµ Р·Р°РЅРѕРІРѕ, РёСЃРїРѕР»СЊР·СѓСЏ С‚РѕР»СЊРєРѕ Р»Р°С‚РёРЅСЃРєРёР№ Р°Р»С„Р°РІРёС‚, Р·Р°РіР»Р°РІРЅС‹Рµ Рё РїСЂРѕРїРёСЃРЅС‹Рµ СЃРёРјРІРѕР»С‹!");
+        }
+        catch (Exception ob)
+        {
+            flag = true;
+            ob.ShowMsg();
+            rewind(stdin);
+        }
 
-	} while (flag);
-	return str;
+    } while (flag);
+    return str;
 }
 
-char* validationCheckPas(istream& in)
+int CheckInt(istream& in, int min, int max)
 {
-	rewind(stdin);
-	char* str = new char[20];
-	bool flag;
-	do
-	{
-		try
-		{
-			flag = false;
-			//in >> str;
-			in.getline(str, 20);
-			for (int i = 0; str[i]; i++)
-				if (!(str[i] >= 'a' && str[i] <= 'z' || str[i] >= 'A' && str[i] <= 'Z' || str[i] >= '0' && str[i] <= '9'))
-					throw Exception("Неверный ввод! Введите заново, используя только латинский алфавит, заглавные, прописные символы и цифры!");
-		}
-		catch (Exception ob)
-		{
-			flag = true;
-			ob.show();
-			rewind(stdin);
-		}
-	} while (flag);
-	return str;
+    int num;
+    bool flag;
+    do
+    {
+        try
+        {
+            flag = false;
+            in >> num;
+            if (!in || (in.peek()) != '\n')
+                throw ExceptionOut(1, "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ! Р’РІРµРґРёС‚Рµ Р·Р°РЅРѕРІРѕ, РёСЃРїРѕР»СЊР·СѓСЏ С‚РѕР»СЊРєРѕ С†РёС„СЂС‹!");
+            if (num < min || num > max)
+                throw ExceptionOut(2, "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ! Р’С‹С…РѕРґ Р·Р° РїСЂРµРґРµР»С‹ РґРѕРїСѓСЃС‚РёРјС‹С… Р·РЅР°С‡РµРЅРёР№!");
+        }
+        catch (ExceptionOut ob)
+        {
+            flag = true;
+            in.clear();
+            rewind(stdin);
+            ob.ShowCode();
+        }
+        catch (...)
+        {
+            flag = true;
+            cout << "Р’РѕР·РЅРёРєР»Рѕ РЅРµРѕР¶РёРґР°РЅРЅРѕРµ РёСЃРєР»СЋРµРЅРёРµ!" << endl;
+        }
+    } while (flag);
+    return num;
 }
 
-int validationCheckInt(istream& in, int min, int max)
+char* CheckStrAndNum(istream& in)
 {
-	int num;
-	bool flag;
-	do
-	{
-		try
-		{
-			flag = false;
-			in >> num;
-			if (!in || (in.peek()) != '\n')
-				throw ExceptionInput(1, "Неверный ввод! Введите заново, используя только цифры!");
-			if (num < min || num > max)
-				throw ExceptionInput(2, "Неверный ввод! Выход за пределы допустимых значений!");
-		}
-		catch (ExceptionInput ob)
-		{
-			flag = true;
-			in.clear();
-			rewind(stdin);
-			ob.showKod();
-		}
-		catch (...)
-		{
-			flag = true;
-			cout << "Возникло неожиданное исклюение!" << endl;
-		}
-	} while (flag);
-	return num;
+    rewind(stdin);
+    char* str = new char[20];
+    bool flag;
+    do
+    {
+        try
+        {
+            flag = false;
+            //in >> str;
+            in.getline(str, 20);
+            for (int i = 0; str[i]; i++)
+                if (!(str[i] >= 'a' && str[i] <= 'z' || str[i] >= 'A' && str[i] <= 'Z' || str[i] >= '0' && str[i] <= '9'))
+                    throw Exception("РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ! Р’РІРµРґРёС‚Рµ Р·Р°РЅРѕРІРѕ, РёСЃРїРѕР»СЊР·СѓСЏ С‚РѕР»СЊРєРѕ Р»Р°С‚РёРЅСЃРєРёР№ Р°Р»С„Р°РІРёС‚, Р·Р°РіР»Р°РІРЅС‹Рµ, РїСЂРѕРїРёСЃРЅС‹Рµ СЃРёРјРІРѕР»С‹ Рё С†РёС„СЂС‹!");
+        }
+        catch (Exception ob)
+        {
+            flag = true;
+            ob.ShowMsg();
+            rewind(stdin);
+        }
+    } while (flag);
+    return str;
 }

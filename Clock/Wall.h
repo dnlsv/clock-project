@@ -5,26 +5,25 @@
 class Wall : public Mechanical
 {
 private:
-	char form[RESERVESIZE]; //форма
-	int value; //цена деления циферблата
+    char form[kReservedSize]; //С„РѕСЂРјР°
+    int value; //С†РµРЅР° РґРµР»РµРЅРёСЏ С†РёС„РµСЂР±Р»Р°С‚Р°
 public:
-	Wall();
-	~Wall();
-	void set_form(char*);
-	char* get_form();
-	void set_value(int);
-	int get_value();
-	friend ostream& operator <<(ostream& out, Wall obj);
-	friend istream& operator >> (istream& in, Wall& obj);
-	friend fstream& operator <<(fstream& fout, Wall obj);
-	friend fstream& operator >> (fstream& fin, Wall& obj);
-	void tableCap();
-	void edit();
-	//friend void operator ~(Wall ob);
-	static string getNameOfClass();
+    Wall();
+    ~Wall();
+    void SetForm(char*);
+    char* GetForm();
+    void SetValue(int);
+    int GetValue();
+    friend ostream& operator <<(ostream& out, Wall obj);
+    friend istream& operator >> (istream& in, Wall& obj);
+    friend fstream& operator <<(fstream& fout, Wall obj);
+    friend fstream& operator >> (fstream& fin, Wall& obj);
+    void TableHeader();
+    void Edit();
+    //friend void operator ~(Wall ob);
+    static string GetNameOfClass();
 
-	bool operator == (Wall ob);
-	friend bool operator <(const Wall& ob1, const Wall& ob2);
-	friend bool operator >(const Wall& ob1, const Wall& ob2);
+    bool operator == (Wall ob);
+    friend bool operator <(const Wall& ob1, const Wall& ob2);
+    friend bool operator >(const Wall& ob1, const Wall& ob2);
 };
-

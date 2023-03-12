@@ -5,25 +5,25 @@
 class Wrist : public Mechanical
 {
 private:
-	char materialrem[RESERVESIZE]; //материал ремешка
-	bool water; //водозащита
+    char strapMaterial[kReservedSize]; //РјР°С‚РµСЂРёР°Р» СЂРµРјРµС€РєР°
+    bool water; //РІРѕРґРѕР·Р°С‰РёС‚Р°
 public:
-	Wrist();
-	~Wrist();
-	void set_materialrem(char*);
-	char* get_materialrem();
-	void set_water(bool);
-	bool get_water();
-	friend ostream& operator <<(ostream& out, Wrist obj);
-	friend istream& operator >> (istream& in, Wrist& obj);
-	friend fstream& operator <<(fstream& fout, Wrist obj);
-	friend fstream& operator >> (fstream& fin, Wrist& obj);
-	void tableCap();
-	void edit();
-	//friend void operator ~(Wrist ob);
-	static string getNameOfClass();
+    Wrist();
+    ~Wrist();
+    void SetStrapMaterial(char*);
+    char* GetStrapMaterial();
+    void SetWater(bool);
+    bool GetWater();
+    friend ostream& operator <<(ostream& out, Wrist obj);
+    friend istream& operator >> (istream& in, Wrist& obj);
+    friend fstream& operator <<(fstream& fout, Wrist obj);
+    friend fstream& operator >> (fstream& fin, Wrist& obj);
+    void TableHeader();
+    void Edit();
+    //friend void operator ~(Wrist ob);
+    static string GetNameOfClass();
 
-	bool operator == (Wrist ob);
-	friend bool operator <(const Wrist& ob1, const Wrist& ob);
-	friend bool operator >(const Wrist& ob1, const Wrist& o);
+    bool operator == (Wrist ob);
+    friend bool operator <(const Wrist& ob1, const Wrist& ob);
+    friend bool operator >(const Wrist& ob1, const Wrist& o);
 };

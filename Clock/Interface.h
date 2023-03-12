@@ -1,27 +1,28 @@
 #pragma once
 
+#include <set>
+#include <algorithm>
+#include <iterator>
+
 #include "Electronic.h"
 #include "Wall.h"
 #include "Wrist.h"
 #include "FileText.cpp"
 #include "FileBinary.cpp"
-#include<set>
-#include<algorithm>
-#include<iterator>
 
 template <class T>
 class Interface
 {
 private:
-	T element;
+    T element;
 public:
-	Interface() {}; //конструктор без параметров
-	~Interface() {}; //деструктор без параметров
-	void menu(); //меню выбора данных для работы с ними
-	void fun(string text_file, string binary_file); //меню работы с данными выбранного типа
-	//friend bool operator <(const T& obj, const T& obj1);
-	//void addElement(Container<T>& obj); //добавление элемента
-	//void deleteElement(Container<T>& obj); //удаление елемента
-	void viewElements(const multiset<T>& mult); //просмотр таблицы элементов
-	//void editElement(Container<T>& obj, Algoritm<T>& alg); //редактирование елемента
+    Interface() {}; //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
+    ~Interface() {}; //РґРµСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
+    void Menu(); //РјРµРЅСЋ РІС‹Р±РѕСЂР° РґР°РЅРЅС‹С… РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РЅРёРјРё
+    void Fun(string file_name); //РјРµРЅСЋ СЂР°Р±РѕС‚С‹ СЃ РґР°РЅРЅС‹РјРё РІС‹Р±СЂР°РЅРЅРѕРіРѕ С‚РёРїР°
+    //friend bool operator <(const T& obj, const T& obj1);
+    //void addElement(Container<T>& obj); //РґРѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°
+    //void deleteElement(Container<T>& obj); //СѓРґР°Р»РµРЅРёРµ РµР»РµРјРµРЅС‚Р°
+    void ViewElements(const multiset<T>& clocks); //РїСЂРѕСЃРјРѕС‚СЂ С‚Р°Р±Р»РёС†С‹ СЌР»РµРјРµРЅС‚РѕРІ
+    //void editElement(Container<T>& obj, Algoritm<T>& alg); //СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РµР»РµРјРµРЅС‚Р°
 };

@@ -5,17 +5,17 @@
 class Mechanical : public Clock
 {
 protected:
-	char face[RESERVESIZE]; //тип циферблата
-	char glass[RESERVESIZE]; //стекло
+    char face[kReservedSize]; //С‚РёРї С†РёС„РµСЂР±Р»Р°С‚Р°
+    char glass[kReservedSize]; //СЃС‚РµРєР»Рѕ
 public:
-	Mechanical();
-	~Mechanical();
-	void set_face(char*);
-	char* get_face();
-	void set_glass(char*);
-	char* get_glass();
-	friend ostream& operator <<(ostream& out, Mechanical& obj);
-	friend istream& operator >> (istream& in, Mechanical& obj);
-	friend fstream& operator <<(fstream& fout, Mechanical& obj);
-	friend fstream& operator >> (fstream& fin, Mechanical& obj);
+    Mechanical();
+    ~Mechanical();
+    void SetFace(char*);
+    char* GetFace();
+    void SetGlass(char*);
+    char* GetGlass();
+    friend ostream& operator <<(ostream& out, Mechanical& obj);
+    friend istream& operator >> (istream& in, Mechanical& obj);
+    friend fstream& operator <<(fstream& fout, Mechanical& obj);
+    friend fstream& operator >> (fstream& fin, Mechanical& obj);
 };

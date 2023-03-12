@@ -5,28 +5,27 @@
 class Electronic : public Clock
 {
 private:
-	char type[RESERVESIZE]; //тип часов
-	char platform[RESERVESIZE]; //платформа
+    char type[kReservedSize]; //С‚РёРї С‡Р°СЃРѕРІ
+    char platform[kReservedSize]; //РїР»Р°С‚С„РѕСЂРјР°
 public:
-	Electronic();
-	~Electronic();
-	void set_type(char*);
-	char* get_type();
-	void set_platform(char*);
-	char* get_platform();
-	friend ostream& operator <<(ostream& out, Electronic obj);
-	friend istream& operator >> (istream& in, Electronic& obj);
-	friend fstream& operator <<(fstream& fout, Electronic obj);
-	friend fstream& operator >> (fstream& fin, Electronic& obj);
-	void tableCap();
-	void edit();
-	//friend void operator ~(Electronic ob);
-	static string getNameOfClass();
-	friend fstream& operator <<(fstream& fout, Electronic obj);
-	friend fstream& operator >> (fstream& fin, Electronic& obj);
+    Electronic();
+    ~Electronic();
+    void SetType(char*);
+    char* GetType();
+    void SetPlatform(char*);
+    char* GetPlatform();
+    friend ostream& operator <<(ostream& out, Electronic obj);
+    friend istream& operator >> (istream& in, Electronic& obj);
+    friend fstream& operator <<(fstream& fout, Electronic obj);
+    friend fstream& operator >> (fstream& fin, Electronic& obj);
+    void TableHeader();
+    void Edit();
+    //friend void operator ~(Electronic ob);
+    static string GetNameOfClass();
+    friend fstream& operator <<(fstream& fout, Electronic obj);
+    friend fstream& operator >> (fstream& fin, Electronic& obj);
 
-	bool operator == (Electronic ob);
-	friend bool operator <(const Electronic& ob1, const Electronic& ob2);
-	friend bool operator >(const Electronic& ob1, const Electronic& ob2);
+    bool operator == (Electronic ob);
+    friend bool operator <(const Electronic& ob1, const Electronic& ob2);
+    friend bool operator >(const Electronic& ob1, const Electronic& ob2);
 };
-
